@@ -3,566 +3,429 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>4 Dragons Capital</title>
-    <!-- Thumbnail/Favicon for social media and browser tabs -->
-    <meta property="og:image" content="https://i.postimg.cc/Jy7CWwtr/image-removebg-preview.png">
-    <link rel="icon" href="https://i.postimg.cc/Jy7CWwtr/image-removebg-preview.png" type="image/png">
-    
+    <title>4 Dragons Capital | Private Investment firm</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'swiss-red': '#FF2E00',
+                        'midnight': '#0B1120',
+                        'charcoal': '#1A1A1A',
+                        'alabaster': '#F4F4F0',
+                        'gold-leaf': '#D4AF37',
+                        'paper': '#F9F9F7',
+                        'ink': '#111827'
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        sans: ['"Inter"', 'sans-serif'],
+                    },
+                    spacing: {
+                        '128': '32rem',
+                    }
+                }
+            }
+        }
+    </script>
     <style>
+        /* Swiss Design Reset & Base */
         :root {
-            --primary: #FBBF24;
-            --primary-dark: #D97706;
-            --dark: #0F172A;
-            --darker: #020617;
+            --grid-line-color: rgba(0, 0, 0, 0.08);
         }
-        
+
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--darker);
-            color: #E5E7EB;
+            background-color: #F9F9F7;
+            color: #111827;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
             overflow-x: hidden;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
         }
-        
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
+
+        /* Typography Hierarchy */
+        .type-display {
+            font-family: 'Cormorant Garamond', serif;
+            letter-spacing: -0.02em;
+            line-height: 0.95;
         }
-        ::-webkit-scrollbar-track {
-            background: var(--darker);
+
+        .type-swiss {
+            font-family: 'Inter', sans-serif;
+            letter-spacing: -0.01em;
         }
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 4px;
+
+        /* Animations */
+        .reveal-text {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--primary-dark);
+
+        .reveal-text.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
-        
+
+        /* Navigation Hover */
         .nav-link {
             position: relative;
-            transition: color 0.3s ease;
         }
         .nav-link::after {
             content: '';
             position: absolute;
             width: 0;
-            height: 2px;
+            height: 1px;
             bottom: -4px;
             left: 0;
-            background-color: var(--primary);
-            transition: width 0.3s ease;
-        }
-        .nav-link:hover {
-            color: var(--primary);
+            background-color: #111827;
+            transition: width 0.4s ease;
         }
         .nav-link:hover::after {
             width: 100%;
         }
-        
-        .section {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
-                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+
+        /* Button Styling */
+        .btn-elite {
+            background: transparent;
+            border: 1px solid #111827;
+            color: #111827;
+            padding: 1rem 2.5rem;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 0.875rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
         }
-        .section.visible {
+
+        .btn-elite:hover {
+            background: #111827;
+            color: #ffffff;
+            padding-right: 3.5rem;
+        }
+
+        .btn-elite::after {
+            content: '→';
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .btn-elite:hover::after {
             opacity: 1;
+            right: 1.5rem;
+        }
+
+        /* Mobile Menu */
+        #mobile-menu {
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(-100%);
+        }
+        #mobile-menu.active {
             transform: translateY(0);
         }
         
-        /* Hero text animation */
-        .hero-text span {
-            display: inline-block;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.8s forwards;
+        .section-number {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            color: #9CA3AF;
+            margin-bottom: 1rem;
+            display: block;
         }
-        .hero-text span:nth-child(1) { animation-delay: 0.1s; }
-        .hero-text span:nth-child(2) { animation-delay: 0.2s; }
-        .hero-text span:nth-child(3) { animation-delay: 0.3s; }
-        .hero-text span:nth-child(4) { animation-delay: 0.4s; }
-        
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        /* Gradient animation */
-        .gradient-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 20% 30%, rgba(251, 191, 36, 0.1) 0%, rgba(15, 23, 42, 0) 50%),
-                        radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.1) 0%, rgba(15, 23, 42, 0) 50%);
-            background-size: 200% 200%;
-            animation: gradientMovement 20s ease infinite;
-            z-index: -2;
-        }
-        
-        @keyframes gradientMovement {
-            0% { background-position: 0% 0%; }
-            50% { background-position: 100% 100%; }
-            100% { background-position: 0% 0%; }
-        }
-        
-        /* Glow effect */
-        .glow {
-            text-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
-        }
-        
-        /* Button hover effect */
-        .hover-effect {
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        .hover-effect::before {
-            content: '';
+
+        .quote-mark {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 6rem;
+            color: rgba(0,0,0,0.05);
+            line-height: 0;
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(251, 191, 36, 0.1), transparent);
-            transition: all 0.6s ease;
-        }
-        .hover-effect:hover::before {
-            left: 100%;
-        }
-        
-        /* Custom underline */
-        .custom-underline {
-            position: relative;
-            display: inline-block;
-        }
-        .custom-underline::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 2px;
-            bottom: -4px;
-            left: 0;
-            background: var(--primary);
-            transform: scaleX(0);
-            transform-origin: right;
-            transition: transform 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
-        }
-        .custom-underline:hover::after {
-            transform: scaleX(1);
-            transform-origin: left;
-        }
-
-        /* Mobile-specific styles */
-        @media (max-width: 768px) {
-            /* Adjust hero section for mobile */
-            .hero-text {
-                line-height: 1.2 !important;
-            }
-            
-            /* Better touch targets */
-            .nav-link, button, a {
-                min-height: 44px;
-                min-width: 44px;
-            }
-            
-            /* Improve readability */
-            .text-sm-mobile {
-                font-size: 14px;
-            }
-            
-            .text-lg-mobile {
-                font-size: 16px;
-            }
-            
-            /* Adjust spacing for mobile */
-            .mobile-py {
-                padding-top: 4rem;
-                padding-bottom: 4rem;
-            }
-            
-            /* Reduce animation complexity on mobile for performance */
-            .gradient-bg {
-                animation: gradientMovement 40s ease infinite;
-            }
-            
-            /* Hide particles on very small screens for performance */
-            @media (max-width: 480px) {
-                .particles-container {
-                    display: none;
-                }
-            }
-        }
-
-        /* Improved mobile menu */
-        .mobile-menu-transition {
-            transition: all 0.3s ease-in-out;
-        }
-
-        /* Prevent horizontal scroll on mobile */
-        html, body {
-            max-width: 100%;
-            overflow-x: hidden;
-        }
-
-        /* Improve tap targets for mobile */
-        button, a {
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        /* Optimize font sizes for mobile */
-        @media (max-width: 640px) {
-            h1 {
-                font-size: 2.5rem !important;
-                line-height: 1.1 !important;
-            }
-            
-            h2 {
-                font-size: 2rem !important;
-            }
-            
-            h3 {
-                font-size: 1.5rem !important;
-            }
-            
-            p {
-                font-size: 1rem !important;
-                line-height: 1.6 !important;
-            }
+            top: 2rem;
+            left: -1rem;
         }
     </style>
 </head>
-<body class="antialiased">
-    <!-- Background elements -->
-    <div class="gradient-bg"></div>
-    
-    <!-- Floating particles - hidden on very small screens -->
-    <div class="particles-container fixed inset-0 overflow-hidden pointer-events-none z-0 hidden sm:block">
-        <div class="absolute top-1/4 left-1/5 w-2 h-2 rounded-full bg-amber-400/20 animate-float"></div>
-        <div class="absolute top-1/3 right-1/4 w-3 h-3 rounded-full bg-blue-400/20 animate-float" style="animation-delay: 2s;"></div>
-        <div class="absolute top-2/3 left-1/3 w-1 h-1 rounded-full bg-amber-400/20 animate-float" style="animation-delay: 4s;"></div>
-        <div class="absolute bottom-1/4 right-1/5 w-2 h-2 rounded-full bg-blue-400/20 animate-float" style="animation-delay: 1s;"></div>
-    </div>
+<body class="antialiased selection:bg-black selection:text-white">
 
-    <!-- Header & Navigation -->
-    <header class="bg-gray-900/80 backdrop-blur-lg sticky top-0 z-50 border-b border-gray-800/50">
-        <nav class="container mx-auto px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center">
-            <a href="#" class="flex items-center space-x-2 sm:space-x-3 hover-effect">
-                <img src="https://i.postimg.cc/Jy7CWwtr/image-removebg-preview.png" alt="4 Dragons Capital Logo" class="h-8 w-8 sm:h-10 sm:w-10 transition-transform duration-300 hover:rotate-12">
-                <span class="text-lg sm:text-2xl font-bold text-white tracking-wider">
-                    4 <span class="text-amber-400 glow">DRAGONS</span> CAPITAL
-                </span>
+    <!-- Fixed Navigation Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-[#F9F9F7]/90 backdrop-blur-md border-b border-black/5">
+        <div class="max-w-[1800px] mx-auto px-6 md:px-12 h-24 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-4 group">
+                <img src="https://i.postimg.cc/zGZFTndR/upscalemedia-transformed-2-removebg-preview.png" alt="4 Dragons Capital" class="h-12 w-auto object-contain">
+                <span class="type-swiss text-sm font-medium tracking-widest uppercase hidden md:block group-hover:opacity-60 transition-opacity">4 Dragons Capital</span>
             </a>
-            
-            <!-- Mobile Menu Button -->
-            <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none p-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 sm:h-8 sm:w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
+
+            <nav class="hidden md:flex items-center gap-12">
+                <a href="#philosophy" class="type-swiss text-sm font-light tracking-wide nav-link">Philosophy</a>
+                <a href="#approach" class="type-swiss text-sm font-light tracking-wide nav-link">Approach</a>
+                <a href="#partners" class="type-swiss text-sm font-light tracking-wide nav-link">Partners</a>
+                <a href="#contact" class="btn-elite text-xs py-3 px-6">Request Access</a>
+            </nav>
+
+            <button id="menu-btn" class="md:hidden flex flex-col gap-1.5 p-2 z-50">
+                <span class="w-6 h-px bg-black transition-all origin-center"></span>
+                <span class="w-6 h-px bg-black transition-all origin-center"></span>
             </button>
-            
-            <!-- Desktop Menu -->
-            <div class="hidden md:flex space-x-8 lg:space-x-10">
-                <a href="#philosophy" class="nav-link text-gray-300 font-medium px-2 py-1">Philosophy</a>
-                <a href="#contact" class="nav-link text-gray-300 font-medium px-2 py-1">Contact</a>
-            </div>
-        </nav>
-        
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-gray-900/95 backdrop-blur-lg mobile-menu-transition">
-            <div class="px-4 pb-4">
-                <a href="#philosophy" class="block py-4 nav-link text-gray-300 border-b border-gray-800 text-lg">Philosophy</a>
-                <a href="#contact" class="block py-4 nav-link text-gray-300 text-lg">Contact</a>
-            </div>
         </div>
     </header>
 
-    <main>
-        <!-- Hero Section -->
-        <section id="home" class="min-h-[90vh] sm:min-h-screen flex items-center relative overflow-hidden pt-16 sm:pt-0">
-            <div class="absolute inset-0 bg-gradient-to-b from-gray-900/30 to-gray-900 z-0"></div>
-            <div class="container mx-auto px-4 sm:px-6 text-center relative z-10">
-                <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight sm:leading-tight mb-6">
-                    <span class="hero-text block mb-2 sm:mb-0">
-                        <span>Independent</span>
-                        <span class="text-amber-400 sm:ml-2">Thinking,</span>
-                    </span>
-                    <span class="hero-text block">
-                        <span>Disciplined</span>
-                        <span class="text-amber-400 sm:ml-2">Investing.</span>
-                    </span>
+    <!-- Mobile Navigation Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-[#F9F9F7] z-40 pt-32 px-6 flex flex-col gap-8 md:hidden">
+        <a href="#philosophy" class="type-display text-4xl mobile-link">Philosophy</a>
+        <a href="#approach" class="type-display text-4xl mobile-link">Approach</a>
+        <a href="#partners" class="type-display text-4xl mobile-link">Partners</a>
+        <a href="#contact" class="type-display text-4xl mobile-link text-gray-500">Contact</a>
+        <div class="mt-auto pb-12">
+            <p class="type-swiss text-xs text-gray-400 uppercase tracking-widest">London • Dubai</p>
+        </div>
+    </div>
+
+    <main class="pt-24">
+        <!-- HERO SECTION -->
+        <section class="min-h-[90vh] flex flex-col justify-between px-6 md:px-12 pb-12 max-w-[1800px] mx-auto border-l border-r border-black/5 relative overflow-hidden">
+            <div class="absolute top-0 left-1/4 h-full w-px bg-black/5 hidden md:block"></div>
+            <div class="absolute top-0 left-2/4 h-full w-px bg-black/5 hidden md:block"></div>
+            <div class="absolute top-0 left-3/4 h-full w-px bg-black/5 hidden md:block"></div>
+
+            <div class="pt-24 md:pt-32 relative z-10">
+                <span class="reveal-text section-number">EST. 2024</span>
+                <h1 class="reveal-text type-display text-5xl md:text-8xl lg:text-[7rem] font-light leading-[0.9] text-midnight max-w-5xl mt-6">
+                    Disciplined capital <br>
+                    <span class="italic text-gray-600">stewardship</span> for the <br>
+                    long horizon.
                 </h1>
-                <p class="text-lg sm:text-xl md:text-2xl text-gray-300 max-w-3xl sm:max-w-4xl mx-auto mb-8 sm:mb-10 px-2 opacity-0 animate-fadeIn delay-1000 leading-relaxed">
-                    4 Dragons Capital is a private investment firm focused on long-term value creation through deep fundamental research and a concentrated, contrarian approach. It is founded and Led by Mr. Kunal Ramraje.
-                </p>
-                <div class="opacity-0 animate-fadeIn delay-1500">
-                    <a href="#philosophy" class="inline-flex items-center px-6 sm:px-8 py-3 sm:py-4 bg-amber-400/10 border border-amber-400/30 text-amber-400 font-medium rounded-full hover:bg-amber-400/20 hover:border-amber-400/50 transition-all duration-300 group text-base sm:text-lg">
-                        Explore Our Philosophy
-                        <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-between items-end gap-12 relative z-10">
+                <div class="max-w-md reveal-text" style="transition-delay: 100ms;">
+                    <p class="type-swiss text-sm md:text-base font-light leading-relaxed text-gray-600">
+                        4 Dragons Capital is an independent private investment firm focused on long-term value creation through deep fundamental research and a concentrated, contrarian approach. Founded and led by Mr. Kunal Ramraje.
+                    </p>
+                </div>
+                
+                <div class="flex items-center gap-4 reveal-text" style="transition-delay: 200ms;">
+                    <div class="h-px w-12 bg-black/20"></div>
+                    <span class="type-swiss text-xs uppercase tracking-widest text-gray-400">Scroll</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHILOSOPHY SECTION -->
+        <section id="philosophy" class="border-t border-black/5 bg-white">
+            <div class="max-w-[1800px] mx-auto grid grid-cols-1 md:grid-cols-12 min-h-[80vh]">
+                <div class="md:col-span-3 p-6 md:p-12 border-b md:border-b-0 md:border-r border-black/5 flex flex-col justify-between bg-midnight text-white">
+                    <span class="section-number">01 — PHILOSOPHY</span>
+                    <div class="hidden md:block">
+                        <svg class="w-12 h-12 text-black/10" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" stroke-width="1"/>
+                            <path d="M50 20 L50 80" stroke="currentColor" stroke-width="1"/>
+                            <path d="M20 50 L80 50" stroke="currentColor" stroke-width="1"/>
                         </svg>
-                    </a>
+                    </div>
                 </div>
-            </div>
-            
-            <!-- Scrolling indicator -->
-            <div class="absolute bottom-8 sm:bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce opacity-0 animate-fadeIn delay-2000">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 sm:h-8 sm:w-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                </svg>
-            </div>
-        </section>
 
-        <!-- Philosophy Section -->
-        <section id="philosophy" class="py-16 sm:py-20 md:py-28 lg:py-40 section relative mobile-py">
-            <div class="absolute -top-20 sm:-top-32 left-0 right-0 h-20 sm:h-32 bg-gradient-to-b from-transparent to-gray-900/50 pointer-events-none"></div>
-            <div class="container mx-auto px-4 sm:px-6">
-                <div class="max-w-3xl sm:max-w-4xl mx-auto text-center mb-12 sm:mb-16">
-                    <span class="text-xs sm:text-sm font-semibold tracking-wider text-amber-400 mb-3 sm:mb-4 inline-block">INVESTMENT PHILOSOPHY</span>
-                    <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-6">
-                        <span class="custom-underline">Value-Oriented</span> Approach
-                    </h2>
-                    <p class="text-lg sm:text-xl text-gray-400 px-2">
-                        Our disciplined investment strategy is grounded in timeless principles of value investing.
-                    </p>
-                </div>
-                
-                <div class="grid md:grid-cols-2 gap-6 sm:gap-8 md:gap-12 max-w-5xl lg:max-w-6xl mx-auto">
-                    <div class="bg-gray-900/50 border border-gray-800/50 rounded-xl p-6 sm:p-8 backdrop-blur-sm hover:border-amber-400/30 transition-all duration-300 hover:-translate-y-2">
-                        <div class="text-amber-400 mb-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 sm:h-10 sm:w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                            </svg>
-                        </div>
-                        <h3 class="text-xl sm:text-2xl font-bold text-white mb-3">Fundamental Research</h3>
-                        <p class="text-gray-400 leading-relaxed text-base sm:text-lg">
-                            We conduct exhaustive fundamental analysis to identify companies trading at significant discounts to their intrinsic value, with durable competitive advantages and strong management teams.
-                        </p>
+                <div class="md:col-span-9 p-6 md:p-24 flex flex-col justify-center relative">
+                    <div class="reveal-text">
+                        <span class="quote-mark">“</span>
+                        <h2 class="type-display text-3xl md:text-5xl lg:text-6xl font-light leading-tight mb-12 text-midnight indent-12">
+                            Exceptional returns are earned through patience, <span class="italic">rigorous intellect</span>, and the discipline to wait for the perfect asymmetry.
+                        </h2>
                     </div>
-                    
-                    <div class="bg-gray-900/50 border border-gray-800/50 rounded-xl p-6 sm:p-8 backdrop-blur-sm hover:border-amber-400/30 transition-all duration-300 hover:-translate-y-2">
-                        <div class="text-amber-400 mb-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 sm:h-10 sm:w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 mt-12 border-t border-black/5 pt-12">
+                        <div class="reveal-text">
+                            <h3 class="type-swiss text-sm font-medium uppercase tracking-widest mb-4">Concentration</h3>
+                            <p class="type-swiss font-light text-gray-600 leading-relaxed">
+                                Diversification is often a hedge against ignorance. We construct portfolios with fewer, higher-conviction positions where our proprietary insights provide a durable edge.
+                            </p>
                         </div>
-                        <h3 class="text-xl sm:text-2xl font-bold text-white mb-3">Long-Term Orientation</h3>
-                        <p class="text-gray-400 leading-relaxed text-base sm:text-lg">
-                            Our investment horizon is measured in years, not quarters. This patience allows us to capitalize on market inefficiencies and ignore short-term noise.
-                        </p>
+                        <div class="reveal-text" style="transition-delay: 100ms;">
+                            <h3 class="type-swiss text-sm font-medium uppercase tracking-widest mb-4">Temporality</h3>
+                            <p class="type-swiss font-light text-gray-600 leading-relaxed">
+                                We measure success in decades, not quarters. This temporal arbitrage allows us to capitalize on the short-termism that plagues institutional markets.
+                            </p>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="max-w-3xl sm:max-w-4xl mx-auto mt-12 sm:mt-20 text-gray-300 space-y-6 sm:space-y-8 text-base sm:text-lg">
-                    <p class="leading-relaxed px-2 sm:px-0">
-                        We employ a disciplined investment strategy grounded in the principles of value investing. Our approach is to identify and invest in a select number of publicly-traded companies that we believe are significantly undervalued relative to their intrinsic worth. We seek businesses with durable competitive advantages, strong management teams, and clear catalysts for value realization.
-                    </p>
-                    <p class="leading-relaxed px-2 sm:px-0">
-                        Our long-term orientation allows us to look beyond short-term market fluctuations and focus on the underlying fundamentals of the businesses we own. We are patient, independent thinkers, and we are not afraid to be contrarian. Our goal is to achieve superior, risk-adjusted returns for our partners over the long run.
-                    </p>
                 </div>
             </div>
         </section>
 
-        <!-- Contact Section -->
-        <section id="contact" class="py-16 sm:py-20 md:py-28 lg:py-40 section relative mobile-py">
-            <div class="absolute -top-20 sm:-top-32 left-0 right-0 h-20 sm:h-32 bg-gradient-to-b from-transparent to-gray-900/50 pointer-events-none"></div>
-            <div class="container mx-auto px-4 sm:px-6">
-                <div class="max-w-2xl sm:max-w-3xl mx-auto text-center bg-gray-900/50 border border-gray-800/50 rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-12 backdrop-blur-sm">
-                    <span class="text-xs sm:text-sm font-semibold tracking-wider text-amber-400 mb-3 sm:mb-4 inline-block">GET IN TOUCH</span>
-                    <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-6">Contact Us</h2>
-                    <p class="text-lg sm:text-xl text-gray-400 mb-8 sm:mb-10 px-2">
-                        For inquiries from current or prospective partners, please reach out to us.
-                    </p>
-                    <a href="mailto:kunalramraje4500@gmail.com" class="inline-block text-xl sm:text-2xl font-medium text-amber-400 hover:text-amber-300 transition duration-300 border-b-2 border-transparent hover:border-amber-400 pb-1 break-words px-2">
-                        inquiries@4dragonscapital.com
-                    </a>
+        <!-- APPROACH GRID -->
+        <section id="approach" class="border-t border-black/5 bg-[#F9F9F7]">
+            <div class="max-w-[1800px] mx-auto">
+                <div class="p-6 md:p-12 border-b border-black/5">
+                    <span class="section-number">02 — APPROACH</span>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-black/5">
+                    <div class="p-8 md:p-16 hover:bg-white transition-colors duration-500 group min-h-[400px] flex flex-col justify-between">
+                        <div class="w-8 h-8 border border-black/10 rounded-full flex items-center justify-center text-xs font-serif italic text-gray-400 group-hover:border-black group-hover:text-black transition-all">i</div>
+                        <div>
+                            <h3 class="type-display text-3xl mb-4 group-hover:translate-x-2 transition-transform duration-300">Fundamental <br><span class="italic">Research</span></h3>
+                            <p class="type-swiss text-sm text-gray-500 font-light leading-relaxed">
+                                We act as business owners, not ticket traders. Every investment is preceded by exhaustive due diligence into competitive moats and intrinsic value.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="p-8 md:p-16 hover:bg-white transition-colors duration-500 group min-h-[400px] flex flex-col justify-between">
+                        <div class="w-8 h-8 border border-black/10 rounded-full flex items-center justify-center text-xs font-serif italic text-gray-400 group-hover:border-black group-hover:text-black transition-all">ii</div>
+                        <div>
+                            <h3 class="type-display text-3xl mb-4 group-hover:translate-x-2 transition-transform duration-300">Margin of <br><span class="italic">Safety</span></h3>
+                            <p class="type-swiss text-sm text-gray-500 font-light leading-relaxed">
+                                Capital preservation is paramount. We demand a significant gap between price and value to protect against the unknown and the unknowable.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="p-8 md:p-16 hover:bg-white transition-colors duration-500 group min-h-[400px] flex flex-col justify-between">
+                        <div class="w-8 h-8 border border-black/10 rounded-full flex items-center justify-center text-xs font-serif italic text-gray-400 group-hover:border-black group-hover:text-black transition-all">iii</div>
+                        <div>
+                            <h3 class="type-display text-3xl mb-4 group-hover:translate-x-2 transition-transform duration-300">Contrarian <br><span class="italic">Edge</span></h3>
+                            <p class="type-swiss text-sm text-gray-500 font-light leading-relaxed">
+                                We find value where others find fear. Our best opportunities often reside in misunderstood sectors or during periods of market dislocation.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LEADERSHIP SECTION -->
+        <section id="partners" class="border-t border-black/5 bg-white">
+            <div class="max-w-[1800px] mx-auto grid grid-cols-1 md:grid-cols-2">
+                <div class="p-6 md:p-12 md:border-r border-black/5 flex flex-col justify-between min-h-[400px] md:min-h-[600px] bg-[#0B1120] text-white">
+                    <span class="section-number text-white/30">03 — LEADERSHIP</span>
                     
-                    <div class="mt-10 sm:mt-12 pt-6 sm:pt-8 border-t border-gray-800/50">
-                        <p class="text-gray-500 text-xs sm:text-sm max-w-xl mx-auto px-2">
-                            4 Dragons Capital is a private investment firm. All inquiries are treated with strict confidentiality.
+                    <div class="max-w-lg mt-12 md:mt-0">
+                        <p class="type-swiss text-xs font-medium uppercase tracking-widest text-white/50 mb-6">Founding Partner</p>
+                        <h2 class="type-display text-4xl md:text-5xl font-light mb-8">
+                            A track record built on <br><span class="italic text-gray-400">integrity</span> & insight.
+                        </h2>
+                        <div class="h-px w-24 bg-white/20 mb-8"></div>
+                        <p class="type-swiss font-light text-white/70 leading-relaxed text-sm md:text-base">
+                            Mr. Kunal Ramraje brings over half a decade of experience in global capital markets, our leadership has navigated multiple cycles with a steady hand. An alumnus of leading institutions in India and the United Kingdom. We invest our own capital alongside our partners, ensuring absolute alignment of interests.
                         </p>
                     </div>
                 </div>
+                
+                <div class="relative h-[400px] md:h-auto bg-[#F4F4F0] flex items-center justify-center overflow-hidden">
+                    <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 20px 20px;"></div>
+                    <div class="text-center p-12 relative z-10">
+                        <img src="https://i.postimg.cc/xjBw7Hwr/upscalemedia-transformed-(2).png" alt="Kunal Ramraje" class="h-320 md:h-480 w-auto opacity-55 mx-auto grayscale mix-blend-multiply">
+                        <p class="type-swiss text-sm mt-8 tracking-widest uppercase">Kunal Ramraje</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="border-t border-black/5 bg-[#F9F9F7]">
+            <div class="max-w-[1800px] mx-auto px-6 md:px-12 py-24 md:py-32 text-center">
+                <span class="section-number mx-auto mb-8">04 — INQUIRIES</span>
+                
+                <h2 class="type-display text-4xl md:text-6xl font-light mb-8">
+                    Strictly confidential.
+                </h2>
+                
+                <p class="type-swiss font-light text-gray-600 max-w-xl mx-auto mb-12 leading-relaxed">
+                    We invite qualified institutional investors and family offices to initiate a conversation regarding our current opportunities.
+                </p>
+
+                <a href="mailto:kunalramrje4500@gmail.com" class="inline-block relative group">
+                    <span class="type-display text-2xl md:text-3xl italic text-midnight border-b border-black/20 pb-1 group-hover:border-black transition-all">
+                        info@4dragonscapital.com
+                    </span>
+                </a>
             </div>
         </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 border-t border-gray-800/50 relative z-10">
-        <div class="container mx-auto px-4 sm:px-6 py-8 sm:py-12">
-            <div class="flex flex-col sm:flex-row justify-between items-center">
-                <div class="flex items-center space-x-2 sm:space-x-3 mb-6 sm:mb-0">
-                    <img src="https://i.postimg.cc/Jy7CWwtr/image-removebg-preview.png" alt="4 Dragons Capital Logo" class="h-7 w-7 sm:h-8 sm:w-8">
-                    <span class="text-lg sm:text-xl font-bold text-white tracking-wider">
-                        4 <span class="text-amber-400">DRAGONS</span> CAPITAL
-                    </span>
+    <!-- ULTRA-MINIMALIST CENTERED FOOTER -->
+    <footer class="bg-midnight text-white/80 border-t border-white/10 pt-24 pb-16">
+        <div class="max-w-[1800px] mx-auto px-6 md:px-12 text-center">
+            <!-- Branding -->
+            <div class="flex flex-col items-center mb-16">
+                <img src="https://i.postimg.cc/zGZFTndR/upscalemedia-transformed-2-removebg-preview.png" alt="4 Dragons Capital" class="h-16 w-auto mb-8 brightness-0 invert opacity-90"> 
+                <h3 class="type-swiss text-sm font-medium tracking-[0.3em] uppercase text-white mb-0">4 Dragons Capital</h3>
+            </div>
+
+            <!-- Bottom Legal Bar -->
+            <div class="pt-16 border-t border-white/5 flex flex-col items-center gap-4">
+                <div class="flex flex-wrap justify-center gap-x-12 gap-y-4">
+                    <a href="#" class="type-swiss text-[10px] uppercase tracking-widest text-white/20 hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="type-swiss text-[10px] uppercase tracking-widest text-white/20 hover:text-white transition-colors">Terms of Service</a>
                 </div>
                 
-                <div class="flex space-x-6">
-                    <a href="#philosophy" class="text-gray-400 hover:text-amber-400 transition duration-300 px-2 py-1">Philosophy</a>
-                    <a href="#contact" class="text-gray-400 hover:text-amber-400 transition duration-300 px-2 py-1">Contact</a>
+                <p class="type-swiss text-[10px] text-white/20 uppercase tracking-[0.2em]">
+                    © 2026 4 Dragons Capital. All rights reserved.
+                </p>
+
+                <div class="max-w-2xl">
+                    <p class="type-swiss text-[9px] text-white/10 leading-relaxed uppercase tracking-[0.15em]">
+                        Disclaimer: This platform is for informational purposes only. Investment involves significant risk. Information presented here does not constitute financial, legal, or tax advice. Past performance is not indicative of future results.
+                    </p>
                 </div>
-            </div>
-            
-            <div class="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-gray-800/50 text-center">
-                <p class="text-gray-500 text-xs sm:text-sm mb-4">
-                    &copy; 2025 4 Dragons Capital. All Rights Reserved.
-                </p>
-                <p class="text-gray-600 text-xs max-w-3xl mx-auto px-2">
-                    This website is for informational purposes only and does not constitute an offer to sell or a solicitation of an offer to buy any security in any jurisdiction. An offer can only be made by the private placement memorandum. Past performance is not indicative of future results.
-                </p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Enhanced JavaScript for Mobile Menu
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-            mobileMenuButton.classList.toggle('text-amber-400');
-        });
-
-        // Close mobile menu when a link is clicked
-        document.querySelectorAll('#mobile-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-                mobileMenuButton.classList.remove('text-amber-400');
-            });
-        });
-
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', (event) => {
-            if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target)) {
-                mobileMenu.classList.add('hidden');
-                mobileMenuButton.classList.remove('text-amber-400');
-            }
-        });
-
-        // Enhanced Scroll Animations with Intersection Observer
-        const sections = document.querySelectorAll('.section');
-
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
+        const observerOptions = { threshold: 0.15, rootMargin: "0px" };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
                 }
             });
         }, observerOptions);
 
-        sections.forEach(section => {
-            observer.observe(section);
-        });
+        document.querySelectorAll('.reveal-text').forEach(el => observer.observe(el));
 
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                
-                if (targetElement) {
-                    // Close mobile menu if open
-                    mobileMenu.classList.add('hidden');
-                    mobileMenuButton.classList.remove('text-amber-400');
-                    
-                    // Calculate offset based on screen size
-                    const offset = window.innerWidth < 768 ? 60 : 80;
-                    
-                    window.scrollTo({
-                        top: targetElement.offsetTop - offset,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        let isMenuOpen = false;
 
-        // Hero text animation
-        document.addEventListener('DOMContentLoaded', () => {
-            const heroText = document.querySelector('.hero-text');
-            if (heroText) {
-                const spans = heroText.querySelectorAll('span');
-                spans.forEach(span => {
-                    span.style.opacity = '0';
-                    span.style.transform = 'translateY(20px)';
-                });
+        menuBtn.addEventListener('click', () => {
+            isMenuOpen = !isMenuOpen;
+            mobileMenu.classList.toggle('active');
+            const spans = menuBtn.querySelectorAll('span');
+            if (isMenuOpen) {
+                spans[0].style.transform = 'rotate(45deg) translate(5px, 6px)';
+                spans[1].style.transform = 'rotate(-45deg) translate(5px, -6px)';
+            } else {
+                spans[0].style.transform = 'none';
+                spans[1].style.transform = 'none';
             }
-            
-            // Animate elements with delay
-            const animateDelayedElements = () => {
-                const elements = document.querySelectorAll('.animate-fadeIn');
-                elements.forEach((el, index) => {
-                    setTimeout(() => {
-                        el.style.opacity = '1';
-                    }, index * 500);
-                });
-            };
-            
-            setTimeout(animateDelayedElements, 1500);
         });
 
-        // Add floating animation to particles (only on larger screens)
-        if (window.innerWidth >= 640) {
-            const particles = document.querySelectorAll('.animate-float');
-            particles.forEach(particle => {
-                const duration = 15 + Math.random() * 15;
-                const delay = Math.random() * 5;
-                particle.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
-                
-                // Random position
-                particle.style.top = `${Math.random() * 100}%`;
-                particle.style.left = `${Math.random() * 100}%`;
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                isMenuOpen = false;
+                mobileMenu.classList.remove('active');
+                const spans = menuBtn.querySelectorAll('span');
+                spans[0].style.transform = 'none';
+                spans[1].style.transform = 'none';
             });
-        }
-
-        // Handle viewport resize
-        let resizeTimer;
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(() => {
-                // Adjust mobile menu on resize
-                if (window.innerWidth >= 768) {
-                    mobileMenu.classList.add('hidden');
-                    mobileMenuButton.classList.remove('text-amber-400');
-                }
-            }, 250);
         });
 
-        // Prevent scroll when mobile menu is open
-        document.addEventListener('DOMContentLoaded', () => {
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            
-            mobileMenuButton.addEventListener('click', () => {
-                if (!mobileMenu.classList.contains('hidden')) {
-                    document.body.style.overflow = 'hidden';
-                } else {
-                    document.body.style.overflow = '';
-                }
-            });
-            
-            document.querySelectorAll('#mobile-menu a').forEach(link => {
-                link.addEventListener('click', () => {
-                    document.body.style.overflow = '';
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelectorAll('section:first-of-type .reveal-text').forEach(el => {
+                    el.classList.add('visible');
                 });
-            });
+            }, 100);
         });
     </script>
 </body>
