@@ -157,6 +157,11 @@
             top: 2rem;
             left: -1rem;
         }
+
+        /* Careers Modal Specifics */
+        .modal-open {
+            overflow: hidden;
+        }
     </style>
 </head>
 <body class="antialiased selection:bg-gold-leaf selection:text-white">
@@ -173,10 +178,11 @@
                 <a href="#philosophy" class="type-swiss text-sm font-light tracking-wide nav-link">Philosophy</a>
                 <a href="#approach" class="type-swiss text-sm font-light tracking-wide nav-link">Approach</a>
                 <a href="#partners" class="type-swiss text-sm font-light tracking-wide nav-link">Partners</a>
+                <a href="#" class="type-swiss text-sm font-light tracking-wide nav-link careers-trigger">Careers</a>
                 <a href="#contact" class="btn-elite text-xs py-3 px-6">Request Access</a>
             </nav>
 
-            <button id="menu-btn" class="md:hidden flex flex-col gap-1.5 p-2 z-50">
+            <button id="menu-btn" class="md:hidden flex flex-col gap-1.5 p-2 z-[60]">
                 <span class="w-6 h-px bg-black transition-all origin-center"></span>
                 <span class="w-6 h-px bg-black transition-all origin-center"></span>
             </button>
@@ -188,6 +194,7 @@
         <a href="#philosophy" class="type-display text-4xl mobile-link hover:text-gold-leaf transition-colors">Philosophy</a>
         <a href="#approach" class="type-display text-4xl mobile-link hover:text-gold-leaf transition-colors">Approach</a>
         <a href="#partners" class="type-display text-4xl mobile-link hover:text-gold-leaf transition-colors">Partners</a>
+        <a href="#" class="type-display text-4xl mobile-link careers-trigger hover:text-gold-leaf transition-colors">Careers</a>
         <a href="#contact" class="type-display text-4xl mobile-link text-gray-500 hover:text-gold-leaf transition-colors">Contact</a>
         <div class="mt-auto pb-12">
             <p class="type-swiss text-xs text-gray-400 uppercase tracking-widest">London • Dubai</p>
@@ -362,8 +369,8 @@
             <!-- Branding -->
             <div class="flex flex-col items-center mb-16">
                 <img src="https://i.postimg.cc/zGZFTndR/upscalemedia-transformed-2-removebg-preview.png" alt="4 Dragons Capital" class="h-16 w-auto mb-8 brightness-0 invert opacity-90 hover:opacity-100 transition-opacity"> 
-                <h3 class="type-swiss text-sm font-medium tracking-[0.3em] uppercase text-white mb-0">4 Dragons Capital</h3><br>
-                 <a href="https://www.linkedin.com/company/4dragonscapital" target="_blank" class="inline-block mt-3 type-swiss text-xs font-medium tracking-widest uppercase text-gray-500 hover:text-gold-leaf transition-colors border-b border-transparent hover:border-gold-leaf pb-0.5">LinkedIn</a></a></br>
+                <h3 class="type-swiss text-sm font-medium tracking-[0.3em] uppercase text-white mb-0">4 Dragons Capital</h3><br> 
+                <a href="https://www.linkedin.com/company/4dragonscapital" target="_blank" class="inline-block mt-3 type-swiss text-xs font-medium tracking-widest uppercase text-gray-500 hover:text-gold-leaf transition-colors border-b border-transparent hover:border-gold-leaf pb-0.5">LinkedIn</a>
             </div>
 
             <!-- Bottom Legal Bar -->
@@ -386,7 +393,46 @@
         </div>
     </footer>
 
+    <!-- CAREERS MODAL OVERLAY -->
+    <div id="careers-modal" class="fixed inset-0 z-[100] flex items-center justify-center opacity-0 pointer-events-none transition-all duration-500 bg-midnight/95 backdrop-blur-md px-6">
+        <button id="close-careers" class="absolute top-8 right-8 text-white/50 hover:text-gold-leaf transition-colors p-2 z-10 focus:outline-none">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+        
+        <div class="max-w-2xl w-full p-8 md:p-12 text-center transform translate-y-8 transition-transform duration-700 ease-out relative" id="careers-content">
+            <span class="section-number !text-gold-leaf/80 mb-6">OPPORTUNITIES</span>
+            <h2 class="type-display text-4xl md:text-6xl text-white font-light mb-6">
+                No current <span class="italic text-gold-leaf">positions.</span>
+            </h2>
+            <p class="type-swiss font-light text-white/60 mb-12 leading-relaxed text-sm md:text-base max-w-lg mx-auto">
+                We are always seeking exceptional talent with a contrarian edge. Provide your email below to be notified when future opportunities arise.
+            </p>
+
+            <form id="careers-form" class="flex flex-col sm:flex-row gap-4 justify-center max-w-lg mx-auto">
+                <input 
+                    type="email" 
+                    placeholder="Enter your email address" 
+                    required 
+                    class="bg-transparent border border-white/20 px-6 py-4 text-white placeholder-white/40 focus:outline-none focus:border-gold-leaf type-swiss w-full transition-colors text-sm"
+                >
+                <button 
+                    type="submit" 
+                    id="careers-submit-btn"
+                    class="bg-gold-leaf text-midnight px-8 py-4 type-swiss font-medium tracking-widest uppercase hover:bg-white transition-colors text-xs whitespace-nowrap min-w-[140px]"
+                >
+                    Notify Me
+                </button>
+            </form>
+            <p id="careers-success-msg" class="type-swiss text-sm text-gold-leaf mt-6 opacity-0 transition-opacity duration-300">
+                Thank you. You have been added to our talent network.
+            </p>
+        </div>
+    </div>
+
     <script>
+        // Existing Scroll Reveal Logic
         const observerOptions = { threshold: 0.15, rootMargin: "0px" };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -399,12 +445,13 @@
 
         document.querySelectorAll('.reveal-text').forEach(el => observer.observe(el));
 
+        // Existing Mobile Menu Logic
         const menuBtn = document.getElementById('menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
-        const mobileLinks = document.querySelectorAll('.mobile-link');
+        const mobileLinks = document.querySelectorAll('.mobile-link:not(.careers-trigger)');
         let isMenuOpen = false;
 
-        menuBtn.addEventListener('click', () => {
+        function toggleMenu() {
             isMenuOpen = !isMenuOpen;
             mobileMenu.classList.toggle('active');
             const spans = menuBtn.querySelectorAll('span');
@@ -419,17 +466,13 @@
                 spans[1].style.transform = 'none';
                 spans[1].style.backgroundColor = 'black';
             }
-        });
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
 
         mobileLinks.forEach(link => {
             link.addEventListener('click', () => {
-                isMenuOpen = false;
-                mobileMenu.classList.remove('active');
-                const spans = menuBtn.querySelectorAll('span');
-                spans[0].style.transform = 'none';
-                spans[0].style.backgroundColor = 'black';
-                spans[1].style.transform = 'none';
-                spans[1].style.backgroundColor = 'black';
+                if (isMenuOpen) toggleMenu();
             });
         });
 
@@ -440,10 +483,93 @@
                 });
             }, 100);
         });
+
+        // --- NEW CAREERS MODAL LOGIC ---
+        const careersModal = document.getElementById('careers-modal');
+        const careersContent = document.getElementById('careers-content');
+        const closeCareersBtn = document.getElementById('close-careers');
+        const careersTriggers = document.querySelectorAll('.careers-trigger');
+        const careersForm = document.getElementById('careers-form');
+        const careersSubmitBtn = document.getElementById('careers-submit-btn');
+        const careersSuccessMsg = document.getElementById('careers-success-msg');
+
+        function openCareers(e) {
+            e.preventDefault();
+            
+            // Close mobile menu if it's open
+            if (isMenuOpen) toggleMenu();
+            
+            // Show Modal
+            document.body.classList.add('modal-open');
+            careersModal.classList.remove('opacity-0', 'pointer-events-none');
+            careersModal.classList.add('opacity-100', 'pointer-events-auto');
+            
+            // Animate content up
+            setTimeout(() => {
+                careersContent.classList.remove('translate-y-8');
+                careersContent.classList.add('translate-y-0');
+            }, 50);
+        }
+
+        function closeCareers() {
+            document.body.classList.remove('modal-open');
+            
+            // Animate content down
+            careersContent.classList.remove('translate-y-0');
+            careersContent.classList.add('translate-y-8');
+            
+            // Hide Modal
+            setTimeout(() => {
+                careersModal.classList.remove('opacity-100', 'pointer-events-auto');
+                careersModal.classList.add('opacity-0', 'pointer-events-none');
+                
+                // Reset form state if it was submitted
+                careersSuccessMsg.classList.remove('opacity-100');
+                careersSubmitBtn.innerText = 'Notify Me';
+                careersForm.reset();
+            }, 300); // Wait for transform to start
+        }
+
+        // Attach events to triggers
+        careersTriggers.forEach(trigger => trigger.addEventListener('click', openCareers));
+        
+        // Close on button click
+        closeCareersBtn.addEventListener('click', closeCareers);
+        
+        // Close on clicking outside the content area
+        careersModal.addEventListener('click', (e) => {
+            if (e.target === careersModal) {
+                closeCareers();
+            }
+        });
+
+        // Handle Form Submission smoothly without page reload or alerts
+        careersForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // UI Feedback
+            careersSubmitBtn.innerText = 'Received';
+            careersSubmitBtn.classList.add('bg-white');
+            careersSubmitBtn.classList.remove('bg-gold-leaf');
+            
+            careersSuccessMsg.classList.remove('opacity-0');
+            careersSuccessMsg.classList.add('opacity-100');
+            
+            // Optional: You would normally send an API request here to save the email.
+            
+            // Reset UI after 4 seconds
+            setTimeout(() => {
+                careersSuccessMsg.classList.remove('opacity-100');
+                careersSuccessMsg.classList.add('opacity-0');
+                
+                setTimeout(() => {
+                    careersSubmitBtn.innerText = 'Notify Me';
+                    careersSubmitBtn.classList.remove('bg-white');
+                    careersSubmitBtn.classList.add('bg-gold-leaf');
+                    careersForm.reset();
+                }, 300);
+            }, 4000);
+        });
     </script>
 </body>
 </html>
-
-
-
-
