@@ -68,6 +68,96 @@
     }
     </script>
 
+    <!-- ── Person Schema — People Page ──────────────────────────── -->
+    <script type="application/ld+json">
+    [
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Kunal Ramraje",
+        "jobTitle": "Founder and Chief Executive Officer",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "4 Dragons Capital",
+          "url": "https://www.4dragonscapital.com/"
+        },
+        "url": "https://www.4dragonscapital.com/#people",
+        "description": "Founder and CEO of 4 Dragons Capital. Investment approach synthesises geopolitical reading, macroeconomic positioning, and bottom-up fundamental research with a focus on Indian and US public equities.",
+        "knowsAbout": ["Indian Equities", "US Public Equities", "GARP Investing", "Long-Only Equity Investment", "Geopolitical Analysis", "Macroeconomic Research"]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Nathan Williams",
+        "jobTitle": "Chief Investment Officer",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "4 Dragons Capital",
+          "url": "https://www.4dragonscapital.com/"
+        },
+        "url": "https://www.4dragonscapital.com/#people",
+        "description": "Chief Investment Officer at 4 Dragons Capital. 6+ years in portfolio management and asset allocation across US and European equities with a focus on long-duration value compounders and forex strategies.",
+        "knowsAbout": ["Portfolio Management", "Asset Allocation", "US Equities", "European Equities", "Forex Strategies"]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Sanjna Surana",
+        "jobTitle": "Chief Risk Officer",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "4 Dragons Capital",
+          "url": "https://www.4dragonscapital.com/"
+        },
+        "url": "https://www.4dragonscapital.com/#people",
+        "description": "Chief Risk Officer at 4 Dragons Capital. 5 years specialising in risk management for hedge funds and AMCs, expert in portfolio stress testing, drawdown modelling, and regulatory frameworks.",
+        "knowsAbout": ["Risk Management", "Portfolio Stress Testing", "Drawdown Modelling", "Regulatory Frameworks", "Hedge Fund Risk"]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Sachin Singh",
+        "jobTitle": "Head of Research",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "4 Dragons Capital",
+          "url": "https://www.4dragonscapital.com/"
+        },
+        "url": "https://www.4dragonscapital.com/#people",
+        "description": "Head of Research at 4 Dragons Capital. 2+ years leading fundamental research teams with a contrarian focus, deep expertise in emerging markets, sector rotation, and long-horizon thesis construction.",
+        "knowsAbout": ["Fundamental Research", "Emerging Markets", "Sector Rotation", "Equity Research", "Contrarian Investing"]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "John Robinson",
+        "jobTitle": "Head of US Equity",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "4 Dragons Capital",
+          "url": "https://www.4dragonscapital.com/"
+        },
+        "url": "https://www.4dragonscapital.com/#people",
+        "description": "Head of US Equity at 4 Dragons Capital. Former senior portfolio manager at a proprietary trading firm, specialist in long-term value investing and concentrated equity strategies across large and mid-cap.",
+        "knowsAbout": ["US Equity", "Value Investing", "Concentrated Equity Strategies", "Large Cap Investing", "Mid Cap Investing"]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Prerna Ramraje",
+        "jobTitle": "Chief Technology Officer",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "4 Dragons Capital",
+          "url": "https://www.4dragonscapital.com/"
+        },
+        "url": "https://www.4dragonscapital.com/#people",
+        "description": "Chief Technology Officer at 4 Dragons Capital. Leads development of proprietary platforms, risk engines, and systematic signal generation infrastructure.",
+        "knowsAbout": ["Technology Infrastructure", "Network Security", "Proprietary Trading Platforms", "Risk Engines", "Signal Generation"]
+      }
+    ]
+    </script>
+
     <!-- ── Performance ────────────────────────────────────────────── -->
     <link rel="preload" as="image" href="https://i.postimg.cc/QC6GW0rx/upscalemedia-transformed-(7).png?q=80&w=2070&auto=format&fit=crop">
     <link rel="preload" as="image" href="https://i.postimg.cc/wjSztLWK/upscalemedia-transformed-2-removebg-preview-(1).png">
@@ -345,7 +435,7 @@
 
     <!-- ── Preloader ───────────────────────────────────────────── -->
     <div id="preloader" role="status" aria-label="Loading">
-        <div class="preloader-mark tracking-widest">4 DRAGONS CAPITAL</div>
+        <div class="preloader-mark tracking-widest">4 D R A G O N S C A P I T A L</div>
         <div class="preloader-track">
             <div class="preloader-fill"></div>
         </div>
@@ -440,7 +530,7 @@
                         </div>
                         <div class="reveal mt-8" style="transition-delay:180ms">
                             <p class="text-sm text-[#57534E] font-light leading-relaxed max-w-md">
-                                A proprietary investment firm focused on concentrated multi-strategy equity investing, emphasizing structural growth themes, disciplined risk management, and long-term capital compounding.
+                                A private investment firm allocating proprietary capital across global equities, focusing on Long-only & GARP strategies. London · Dubai.
                             </p>
                             <div class="mt-6 flex items-center gap-4">
                                 <span class="block w-8 h-px bg-[#0A0A0A]/30"></span>
@@ -1078,7 +1168,7 @@
         });
 
         /* ─── Navigation ───────────────────────────────────────── */
-        window.navigateTo = function (pageId) {
+        function swapPage(pageId) {
             const contentArea = document.getElementById('content-area');
 
             // Fade out
@@ -1112,7 +1202,23 @@
                 if (menu.classList.contains('open')) toggleMobileMenu();
 
             }, 350);
+        }
+
+        window.navigateTo = function (pageId) {
+            const hash = '#' + pageId;
+            if (window.location.hash !== hash) {
+                history.pushState({ page: pageId }, '', hash);
+            }
+            swapPage(pageId);
         };
+
+        // Handle browser back / forward
+        window.addEventListener('popstate', function (e) {
+            const pageId = e.state && e.state.page
+                ? e.state.page
+                : (window.location.hash.replace('#', '') || 'home');
+            swapPage(pageId);
+        });
 
         /* ─── Mobile Menu ──────────────────────────────────────── */
         window.toggleMobileMenu = function () {
@@ -1188,7 +1294,15 @@
         document.getElementById('year').textContent = new Date().getFullYear();
 
         /* ─── Bootstrap ────────────────────────────────────────── */
-        navigateTo('home');
+        // Respect URL hash for direct links / refresh — e.g. /#people
+        (function () {
+            const hash = window.location.hash.replace('#', '');
+            const validPages = ['home', 'about', 'people', 'philosophy', 'careers', 'contact'];
+            const initialPage = validPages.includes(hash) ? hash : 'home';
+            // Replace current history entry so back-button works correctly from initial load
+            history.replaceState({ page: initialPage }, '', '#' + initialPage);
+            navigateTo(initialPage);
+        })();
     })();
     </script>
 </body>
